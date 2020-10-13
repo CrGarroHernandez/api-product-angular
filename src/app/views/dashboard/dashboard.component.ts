@@ -75,12 +75,14 @@ export class DashboardComponent implements OnInit {
     modalRef.componentInstance.product = product;
 
     modalRef.result.then((result) => {
-      if (result.status == "Ok") {
-        this.alert.showSuccess(result.msg);
-        this.ngOnInit();
-      }else if(result.status == "Error"){
-        this.alert.showError(result.msg);
-      }
+      if(result){
+        if (result.status == "Ok") {
+          this.alert.showSuccess(result.msg);
+          this.ngOnInit();
+        }else if(result.status == "Error"){
+          this.alert.showError(result.msg);
+        }
+      }      
     });
   }
 

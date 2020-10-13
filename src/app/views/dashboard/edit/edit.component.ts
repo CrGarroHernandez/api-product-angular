@@ -39,48 +39,21 @@ export class EditComponent implements OnInit {
     })*/
     this.editForm = this.formBuilder.group({
       id: [this.product.id, Validators.required],
-      name: [this.product.name, Validators.compose([Validators.required, this.customValidationName()])],
-      price: [this.product.price,Validators.compose([Validators.required, this.customValidationName()])],
+      name: [this.product.name, Validators.required],
+      price: [this.product.price, Validators.required],
       token: [token, Validators.required],
     })
   }
 
   editProduct(){
-    console.log(this.editForm.value.name);
-    console.log(this.product.name);
-    /*if(){
-      this.editForm.valid;
+    console.log(this.editForm.value.price);
+    console.log(this.product.price);
+    if(this.editForm.value.name == this.product.name && this.editForm.value.price == this.product.price){
+      this.activeModal.close();
     }else{
-
       this.api.putProduct(this.editForm.value).subscribe( data =>{
         this.activeModal.close(data.result);
       })
-    }*/
-  }
-
-  customValidationName(){
-    return (control: AbstractControl):{[key: string]: boolean} | null => {
-      console.log(control.parent);
-
-      const formGroup = control.parent;
-      if(formGroup.controls != null){
-        console.log(formGroup.controls);
-      }
-
-
-        if(this.product.name == control.value){
-          return {'customValidationName': true, 'customValidationPrice': true}
-        }
-      return null;
-    };
-  }
-
-  customValidationPrice(){
-    return (control: AbstractControl):{[key: string]: boolean} | null => {
-        if(this.product.price == control.value){
-          return {'customValidationPrice': true, 'customValidationName': true}
-        }
-      return null;
-    };
+    }
   }
 }
